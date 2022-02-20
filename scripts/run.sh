@@ -1,1 +1,1 @@
-docker run --rm -e TZ="Europe/Moscow" go-clock:v1.0.0
+docker run --rm -e TZ="Europe/Moscow" go-clock:$(git describe --tags --abbrev=0)
