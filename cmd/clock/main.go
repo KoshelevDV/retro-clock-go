@@ -6,5 +6,6 @@ import (
 
 func main() {
 
-	clock.Clock()
+	// clock.Clock()
+	clock.CycleClock()
 }

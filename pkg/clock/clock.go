@@ -35,3 +35,57 @@ func Clock() {
 		time.Sleep(time.Millisecond * 100)
 	}
 }
+
+func CycleClock() {
+	i := 0
+	toLeft := true
+
+	for {
+		screen.Clear()
+		screen.MoveTopLeft()
+
+		now := time.Now()
+		hour, min, sec, milsec := now.Hour(), now.Minute(), now.Second(), now.Nanosecond()
+
+		clock := [...]placeholder.Placeholder{
+			placeholder.Digits[hour/10], placeholder.Digits[hour%10],
+			placeholder.Colon[0],
+			placeholder.Digits[min/10], placeholder.Digits[min%10],
+			placeholder.Colon[0],
+			placeholder.Digits[sec/10], placeholder.Digits[sec%10],
+			placeholder.Colon[1],
+			placeholder.Digits[milsec/100000000],
+		}
+
+		temp := [...]placeholder.Placeholder{
+			placeholder.Colon[2],
+			placeholder.Colon[2],
+			placeholder.Colon[2],
+			placeholder.Colon[2],
+			placeholder.Colon[2],
+			placeholder.Colon[2],
+			placeholder.Colon[2],
+			placeholder.Colon[2],
+			placeholder.Colon[2],
+		}
+
+		if toLeft {
+			placeholder.Print(append(clock[:], temp[:]...)[i:i+10], placeholder.Colon[:], sec, true)
+		} else {
+			placeholder.Print(append(temp[:], clock[:]...)[i+1:i+10], placeholder.Colon[:], sec, true)
+		}
+		func() {
+			fmt.Println()
+			alarm(sec, 2)
+		}()
+
+		if (milsec/100000000)%10 == 0 {
+			i += 1
+		}
+		if i >= 10 {
+			i = 0
+			toLeft = !toLeft
+		}
+		time.Sleep(time.Millisecond * 100)
+	}
+}

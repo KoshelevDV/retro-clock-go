@@ -16,3 +16,9 @@ func Print(content []Placeholder, colon []Placeholder, sec int, blink bool) {
 		fmt.Println()
 	}
 }
+
+func CyclePrint(content []Placeholder, colon []Placeholder, sec int, blink bool) {
+	for i := 0; i < len(content); i++ {
+		Print(content[i:], colon, sec, blink)
+	}
+}
