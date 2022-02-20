@@ -72,7 +72,7 @@ func CycleClock() {
 		if toLeft {
 			placeholder.Print(append(clock[:], temp[:]...)[i:i+10], placeholder.Colon[:], sec, true)
 		} else {
-			placeholder.Print(append(temp[:], clock[:]...)[i+1:i+10], placeholder.Colon[:], sec, true)
+			placeholder.Print(append(temp[:], clock[:]...)[i:i+10], placeholder.Colon[:], sec, true)
 		}
 		func() {
 			fmt.Println()
@@ -82,7 +82,10 @@ func CycleClock() {
 		if (milsec/100000000)%10 == 0 {
 			i += 1
 		}
-		if i >= 10 {
+		if i >= 10 && toLeft {
+			i = 0
+			toLeft = !toLeft
+		} else if i >= 9 && !toLeft {
 			i = 0
 			toLeft = !toLeft
 		}
