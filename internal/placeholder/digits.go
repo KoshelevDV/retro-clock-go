@@ -1,6 +1,4 @@
-package digits
-
-type Placeholder [5]string
+package placeholder
 
 var Digits = [...]Placeholder{
 	{
@@ -72,22 +70,5 @@ var Digits = [...]Placeholder{
 		"███",
 		"  █",
 		"███",
-	},
-}
-
-var Colon = [...]Placeholder{
-	{
-		"   ",
-		" ░ ",
-		"   ",
-		" ░ ",
-		"   ",
-	},
-	{
-		"   ",
-		"   ",
-		"   ",
-		"   ",
-		"   ",
 	},
 }
