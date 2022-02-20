@@ -1,0 +1,1 @@
+docker build --no-cache -t go-clock:$(git describe --tags --abbrev=0) $1
