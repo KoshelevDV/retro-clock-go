@@ -9,7 +9,7 @@ import (
 )
 
 func Clock() {
-	for {
+	for shift := 0; ; shift++ {
 		screen.Clear()
 		screen.MoveTopLeft()
 
@@ -26,13 +26,30 @@ func Clock() {
 			placeholder.Digits[milsec/100000000],
 		}
 
-		placeholder.Print(clock[:], placeholder.Colon[:], sec, true)
-		func() {
-			fmt.Println()
-			alarm(sec, 2)
-		}()
+		for line := range clock[0] {
+			l := len(clock)
+			s, e := shift%l, l
 
-		time.Sleep(time.Millisecond * 100)
+			if shift%(l*2) >= l {
+				s, e = 0, s
+			}
+
+			for j := 0; j < l-e; j++ {
+				fmt.Print("     ")
+			}
+
+			for i := s; i < e; i++ {
+				next := clock[i][line]
+				if placeholder.Contains(placeholder.Colon[:], clock[i]) && sec%2 == 0 {
+					next = "   "
+				}
+
+				fmt.Print(next, "  ")
+			}
+			fmt.Println()
+		}
+
+		time.Sleep(time.Millisecond * 1000)
 	}
 }
 
